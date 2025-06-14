@@ -1,0 +1,15 @@
+import librosa
+import librosa.display
+import matplotlib.pyplot as plt
+import numpy as np
+
+y, sr = librosa.load("C:\Audio_Speech_Actors_01-24\Actor_01", duration=3)
+mel = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=2048, hop_length=512, n_mels=128)
+mel_db = librosa.power_to_db(mel, ref=np.max)
+
+plt.figure(figsize=(10, 4))
+librosa.display.specshow(mel_db, sr=sr, x_axis='time', y_axis='mel')
+plt.colorbar(format='%+2.0f dB')
+plt.title('Mel Spectrogram')
+plt.tight_layout()
+plt.savefig("mel_spectrogram.png")
